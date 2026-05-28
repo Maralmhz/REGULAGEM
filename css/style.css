@@ -91,7 +91,7 @@ h2 { margin-bottom: 0; color: var(--navy); letter-spacing: -.025em; }
 .panel { padding: 22px; margin-bottom: 22px; }
 .panel-header { display: flex; justify-content: space-between; align-items: center; gap: 18px; margin-bottom: 18px; }
 .sticky-panel-header { position: sticky; top: 0; z-index: 3; background: rgba(255,255,255,.95); padding-bottom: 12px; }
-.vehicle-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.vehicle-grid { display: grid; grid-template-columns: 1.25fr 1.35fr .7fr .85fr .9fr 1.55fr; gap: 12px; align-items: end; }
 .field { display: grid; gap: 7px; }
 .field span { color: var(--muted); font-weight: 800; font-size: .82rem; }
 .field input, .field select, .field textarea, .search-box input, .toolbar select, .table-input {
@@ -156,6 +156,7 @@ tbody tr:hover { background: #f8fbff; }
   .side-nav { grid-auto-flow: column; overflow-x: auto; }
   .sidebar-card { margin-left: auto; margin-top: 0; }
   .dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .vehicle-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .workspace { grid-template-columns: 1fr; }
 }
 

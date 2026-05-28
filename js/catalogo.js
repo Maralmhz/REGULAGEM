@@ -52,7 +52,15 @@ const basesCatalogo = [
     ['Painel frontal - recuperação', 'estrutural', 'estrutural', 980], ['Painel traseiro - recuperação', 'estrutural', 'estrutural', 940], ['Agregado - alinhamento alojamento', 'estrutural', 'estrutural', 900],
     ['Túnel central - reparo', 'assoalho', 'estrutural', 1250], ['Assoalho dianteiro - reparo', 'assoalho', 'forte', 960], ['Assoalho traseiro - reparo', 'assoalho', 'forte', 920],
     ['Caixa de ar - recuperação estrutural', 'estrutural', 'estrutural', 1180], ['Coluna A - reparo estrutural', 'estrutural', 'estrutural', 1300], ['Coluna B - reparo estrutural', 'estrutural', 'estrutural', 1320],
-    ['Coluna C - reparo estrutural', 'estrutural', 'estrutural', 1200]
+    ['Coluna C - reparo estrutural', 'estrutural', 'estrutural', 1200],
+    ['Recuperação tampa traseira leve', 'traseira', 'leve', 280], ['Recuperação tampa traseira média', 'traseira', 'medio', 470], ['Recuperação tampa traseira forte', 'traseira', 'forte', 760],
+    ['Recuperação capô leve', 'frontal', 'leve', 300], ['Recuperação capô média', 'frontal', 'medio', 520], ['Recuperação capô forte', 'frontal', 'forte', 840],
+    ['Recuperação paralama dianteiro esquerdo leve', 'lateral', 'leve', 240], ['Recuperação paralama dianteiro esquerdo média', 'lateral', 'medio', 390], ['Recuperação paralama dianteiro esquerdo forte', 'lateral', 'forte', 620],
+    ['Recuperação paralama dianteiro direito leve', 'lateral', 'leve', 240], ['Recuperação paralama dianteiro direito média', 'lateral', 'medio', 390], ['Recuperação paralama dianteiro direito forte', 'lateral', 'forte', 620],
+    ['Recuperação para choque dianteiro leve', 'plástico frontal', 'leve', 220], ['Recuperação para choque dianteiro média', 'plástico frontal', 'medio', 360], ['Recuperação para choque dianteiro forte', 'plástico frontal', 'forte', 560],
+    ['Recuperação para choque traseiro leve', 'plástico traseiro', 'leve', 220], ['Recuperação para choque traseiro média', 'plástico traseiro', 'medio', 360], ['Recuperação para choque traseiro forte', 'plástico traseiro', 'forte', 560],
+    ['Recuperação mini frente', 'frontal estrutural', 'estrutural', 1050], ['Recuperação alojamento farol esquerdo', 'frontal', 'medio', 420], ['Recuperação alojamento farol direito', 'frontal', 'medio', 420],
+    ['Solda e acabamento de suporte frontal', 'frontal', 'medio', 380], ['Rebatimento vinco lateral', 'lateral', 'medio', 430], ['Correção folga de vãos', 'alinhamento', 'medio', 360]
   ]},
   { categoria: 'desmontagem', prefixo: 'DES', itens: [
     ['Desmontagem frontal parcial', 'frontal', 'leve', 220], ['Desmontagem frontal completa', 'frontal', 'medio', 420], ['Montagem frontal completa', 'frontal', 'medio', 430],
@@ -63,7 +71,11 @@ const basesCatalogo = [
     ['Desmontagem painel interno', 'interior', 'forte', 650], ['Montagem painel interno', 'interior', 'forte', 680], ['Desmontagem suspensão dianteira', 'suspensão', 'medio', 380],
     ['Montagem suspensão dianteira', 'suspensão', 'medio', 390], ['Desmontagem suspensão traseira', 'suspensão', 'medio', 360], ['Montagem suspensão traseira', 'suspensão', 'medio', 370],
     ['Montagem completa pós-reparo', 'geral', 'forte', 980], ['Desmontagem acabamento interno', 'interior', 'medio', 300], ['Montagem acabamento interno', 'interior', 'medio', 320],
-    ['Desmontagem mecânica frontal', 'mecânica', 'forte', 580], ['Montagem mecânica frontal', 'mecânica', 'forte', 600], ['Desmontagem conjunto radiador', 'arrefecimento', 'medio', 280]
+    ['Desmontagem mecânica frontal', 'mecânica', 'forte', 580], ['Montagem mecânica frontal', 'mecânica', 'forte', 600], ['Desmontagem conjunto radiador', 'arrefecimento', 'medio', 280],
+    ['Desmontagem capô', 'frontal', 'leve', 140], ['Montagem capô', 'frontal', 'leve', 150], ['Desmontagem tampa traseira', 'traseira', 'leve', 160], ['Montagem tampa traseira', 'traseira', 'leve', 170],
+    ['Desmontagem para-choque dianteiro', 'frontal', 'leve', 180], ['Montagem para-choque dianteiro', 'frontal', 'leve', 190], ['Desmontagem para-choque traseiro', 'traseira', 'leve', 180], ['Montagem para-choque traseiro', 'traseira', 'leve', 190],
+    ['Desmontagem grade frontal', 'frontal', 'leve', 110], ['Montagem grade frontal', 'frontal', 'leve', 120], ['Desmontagem retrovisores', 'lateral', 'leve', 120], ['Montagem retrovisores', 'lateral', 'leve', 130],
+    ['Desmontagem vidros laterais', 'vidraçaria', 'medio', 260], ['Montagem vidros laterais', 'vidraçaria', 'medio', 280], ['Desmontagem bancos e console', 'interior', 'medio', 360], ['Montagem bancos e console', 'interior', 'medio', 380]
   ]},
   { categoria: 'mecanica', prefixo: 'MEC', itens: [
     ['Radiador - substituir', 'arrefecimento', 'medio', 520], ['Condensador - substituir', 'ar condicionado', 'medio', 480], ['Eletroventilador - substituir', 'arrefecimento', 'medio', 420],
@@ -74,13 +86,18 @@ const basesCatalogo = [
     ['Compressor de ar - substituir', 'ar condicionado', 'forte', 820], ['Motor - remoção para acesso', 'motor', 'forte', 1600], ['Cárter - substituir', 'motor', 'medio', 420],
     ['Correias auxiliares - substituir', 'motor', 'leve', 240], ['Coxim motor - substituir', 'motor', 'medio', 380], ['Coxim câmbio - substituir', 'transmissão', 'medio', 360],
     ['Alinhamento e geometria', 'rodagem', 'leve', 160], ['Balanceamento rodas', 'rodagem', 'leve', 140], ['Mangueira arrefecimento - substituir', 'arrefecimento', 'leve', 180],
-    ['Reservatório expansão - substituir', 'arrefecimento', 'leve', 190], ['Suporte radiador - substituir', 'arrefecimento', 'medio', 360], ['Carga gás ar condicionado', 'ar condicionado', 'leve', 260]
+    ['Reservatório expansão - substituir', 'arrefecimento', 'leve', 190], ['Suporte radiador - substituir', 'arrefecimento', 'medio', 360], ['Carga gás ar condicionado', 'ar condicionado', 'leve', 260],
+    ['Farol esquerdo - substituir e regular', 'iluminação', 'leve', 260], ['Farol direito - substituir e regular', 'iluminação', 'leve', 260], ['Lanterna esquerda - substituir', 'iluminação', 'leve', 210], ['Lanterna direita - substituir', 'iluminação', 'leve', 210],
+    ['Suporte motor - substituir', 'motor', 'medio', 390], ['Travessa inferior radiador - substituir', 'estrutura mecânica', 'medio', 520], ['Tubulação ar condicionado - substituir', 'ar condicionado', 'medio', 420],
+    ['Filtro secador ar condicionado - substituir', 'ar condicionado', 'leve', 220], ['Protetor cárter - substituir', 'motor', 'leve', 180], ['Escapamento dianteiro - alinhar/substituir', 'escapamento', 'medio', 420]
   ]},
   { categoria: 'eletrica', prefixo: 'ELE', itens: [
     ['Chicote frontal - reparo', 'chicote', 'medio', 480], ['Chicote traseiro - reparo', 'chicote', 'medio', 430], ['Chicote porta - reparo', 'chicote', 'leve', 260],
     ['Módulo eletrônico - diagnóstico', 'módulo', 'medio', 360], ['Módulo eletrônico - substituir/configurar', 'módulo', 'forte', 780], ['Sensor estacionamento - substituir', 'sensores', 'leve', 190],
     ['Sensor impacto - substituir', 'sensores', 'medio', 320], ['Sensor ABS - substituir', 'sensores', 'leve', 220], ['Scanner completo pós-colisão', 'diagnóstico', 'leve', 220],
-    ['Reparo elétrico iluminação frontal', 'iluminação', 'leve', 260], ['Reparo elétrico iluminação traseira', 'iluminação', 'leve', 240], ['Regulagem faróis eletrônica', 'iluminação', 'leve', 160]
+    ['Reparo elétrico iluminação frontal', 'iluminação', 'leve', 260], ['Reparo elétrico iluminação traseira', 'iluminação', 'leve', 240], ['Regulagem faróis eletrônica', 'iluminação', 'leve', 160],
+    ['Calibração ADAS frontal', 'assistência condução', 'forte', 850], ['Câmera frontal - configurar', 'assistência condução', 'medio', 520], ['Radar frontal - configurar', 'assistência condução', 'medio', 620],
+    ['Sensor chuva/luz - substituir', 'sensores', 'leve', 260], ['Chicote tampa traseira - reparo', 'chicote', 'medio', 330], ['Interruptor inercial - verificar/substituir', 'segurança elétrica', 'leve', 240]
   ]},
   { categoria: 'airbag', prefixo: 'AIR', itens: [
     ['Bolsa airbag motorista - substituir', 'segurança', 'forte', 1250], ['Bolsa airbag passageiro - substituir', 'segurança', 'forte', 1450], ['Módulo airbag - substituir', 'módulo', 'forte', 980],
@@ -91,28 +108,40 @@ const basesCatalogo = [
     ['Parabrisa - substituir', 'vidros', 'medio', 780], ['Vidro lateral dianteiro esquerdo - substituir', 'vidros', 'leve', 360], ['Vidro lateral dianteiro direito - substituir', 'vidros', 'leve', 360],
     ['Vidro lateral traseiro esquerdo - substituir', 'vidros', 'leve', 340], ['Vidro lateral traseiro direito - substituir', 'vidros', 'leve', 340], ['Vigia traseiro - substituir', 'vidros', 'medio', 690],
     ['Máquina vidro dianteira esquerda - substituir', 'mecanismo', 'medio', 420], ['Máquina vidro dianteira direita - substituir', 'mecanismo', 'medio', 420], ['Máquina vidro traseira - substituir', 'mecanismo', 'medio', 390],
-    ['Canaleta vidro - substituir', 'acabamento vidro', 'leve', 180]
+    ['Canaleta vidro - substituir', 'acabamento vidro', 'leve', 180],
+    ['Guarnição parabrisa - substituir', 'acabamento vidro', 'leve', 190], ['Guarnição vigia - substituir', 'acabamento vidro', 'leve', 190], ['Aplicação cola PU parabrisa', 'insumos vidraçaria', 'leve', 220],
+    ['Vidro custódia esquerdo - substituir', 'vidros', 'leve', 320], ['Vidro custódia direito - substituir', 'vidros', 'leve', 320]
   ]},
   { categoria: 'acabamento', prefixo: 'ACA', itens: [
     ['Grampos diversos - kit', 'fixação', 'leve', 90], ['Presilhas para-choque - kit', 'fixação', 'leve', 120], ['Acabamento interno porta dianteira', 'interno', 'leve', 220],
     ['Acabamento interno porta traseira', 'interno', 'leve', 210], ['Carpete assoalho - substituir', 'interno', 'medio', 520], ['Forro teto - substituir', 'interno', 'medio', 620],
     ['Moldura painel - substituir', 'interno', 'leve', 260], ['Moldura caixa de roda - substituir', 'externo', 'leve', 230], ['Parabarro dianteiro - substituir', 'externo', 'leve', 220],
-    ['Parabarro traseiro - substituir', 'externo', 'leve', 210], ['Defletor inferior - substituir', 'externo', 'leve', 190], ['Friso lateral - substituir', 'externo', 'leve', 180]
+    ['Parabarro traseiro - substituir', 'externo', 'leve', 210], ['Defletor inferior - substituir', 'externo', 'leve', 190], ['Friso lateral - substituir', 'externo', 'leve', 180],
+    ['Emblemas e logotipos - kit', 'externo', 'leve', 120], ['Protetor de soleira - substituir', 'interno', 'leve', 180], ['Vedação porta - substituir', 'borrachas', 'leve', 220],
+    ['Forração porta dianteira - recuperar', 'interno', 'leve', 260], ['Forração porta traseira - recuperar', 'interno', 'leve', 240], ['Revestimento porta-malas - substituir', 'interno', 'leve', 280],
+    ['Isolante acústico assoalho - substituir', 'interno', 'medio', 420], ['Capa retrovisor - substituir', 'externo', 'leve', 150]
   ]},
   { categoria: 'suspensao', prefixo: 'SUS', itens: [
     ['Manga de eixo esquerda - substituir', 'dianteira', 'medio', 480], ['Manga de eixo direita - substituir', 'dianteira', 'medio', 480], ['Terminal direção - substituir', 'direção', 'leve', 180],
     ['Barra estabilizadora - substituir', 'dianteira', 'medio', 360], ['Bieleta estabilizadora - substituir par', 'dianteira', 'leve', 220], ['Eixo traseiro - substituir', 'traseira', 'forte', 980],
-    ['Cubo de roda - substituir', 'rodagem', 'medio', 360], ['Rolamento roda - substituir', 'rodagem', 'medio', 340]
+    ['Cubo de roda - substituir', 'rodagem', 'medio', 360], ['Rolamento roda - substituir', 'rodagem', 'medio', 340],
+    ['Mola dianteira - substituir par', 'dianteira', 'medio', 360], ['Mola traseira - substituir par', 'traseira', 'medio', 340], ['Batente amortecedor - substituir par', 'dianteira', 'leve', 220],
+    ['Coxim amortecedor - substituir par', 'dianteira', 'leve', 260], ['Quadro suspensão traseira - alinhar', 'traseira', 'forte', 760], ['Cambagem corretiva pós-colisão', 'geometria', 'medio', 280]
   ]},
   { categoria: 'arrefecimento', prefixo: 'ARR', itens: [
     ['Aditivo e sangria do sistema', 'fluido', 'leve', 160], ['Tubulação arrefecimento - reparar', 'tubulação', 'leve', 210], ['Defletor radiador - substituir', 'defletores', 'leve', 180],
-    ['Intercooler - substituir', 'turbo', 'medio', 620], ['Ventoinha auxiliar - substituir', 'ventilação', 'medio', 390], ['Teste estanqueidade arrefecimento', 'diagnóstico', 'leve', 140]
+    ['Intercooler - substituir', 'turbo', 'medio', 620], ['Ventoinha auxiliar - substituir', 'ventilação', 'medio', 390], ['Teste estanqueidade arrefecimento', 'diagnóstico', 'leve', 140],
+    ['Suporte eletroventilador - substituir', 'suportes', 'leve', 240], ['Sensor temperatura - substituir', 'sensores', 'leve', 180], ['Válvula termostática - substituir', 'controle temperatura', 'medio', 320],
+    ['Bomba d’água - verificar/substituir', 'circulação', 'medio', 520], ['Abraçadeiras e conexões - kit', 'insumos', 'leve', 120]
   ]},
   { categoria: 'estrutura', prefixo: 'EST', itens: [
     ['Substituição longarina dianteira esquerda', 'frontal', 'estrutural', 2200], ['Substituição longarina dianteira direita', 'frontal', 'estrutural', 2200], ['Substituição painel frontal', 'frontal', 'estrutural', 1650],
     ['Substituição painel traseiro', 'traseira', 'estrutural', 1550], ['Substituição caixa de ar esquerda', 'lateral', 'estrutural', 1750], ['Substituição caixa de ar direita', 'lateral', 'estrutural', 1750],
     ['Substituição coluna A', 'colunas', 'estrutural', 2100], ['Substituição coluna B', 'colunas', 'estrutural', 2250], ['Substituição coluna C', 'colunas', 'estrutural', 1950],
-    ['Bancada estrutural com medição', 'bancada', 'estrutural', 1850], ['Medição eletrônica de carroceria', 'bancada', 'estrutural', 980], ['Reforço assoalho estrutural', 'assoalho', 'estrutural', 1500]
+    ['Bancada estrutural com medição', 'bancada', 'estrutural', 1850], ['Medição eletrônica de carroceria', 'bancada', 'estrutural', 980], ['Reforço assoalho estrutural', 'assoalho', 'estrutural', 1500],
+    ['Substituição travessa frontal superior', 'frontal', 'estrutural', 1450], ['Substituição travessa frontal inferior', 'frontal', 'estrutural', 1500], ['Substituição alojamento farol esquerdo', 'frontal', 'estrutural', 1250],
+    ['Substituição alojamento farol direito', 'frontal', 'estrutural', 1250], ['Substituição caixa de roda dianteira esquerda', 'caixa de roda', 'estrutural', 1550], ['Substituição caixa de roda dianteira direita', 'caixa de roda', 'estrutural', 1550],
+    ['Substituição assoalho porta-malas', 'traseira', 'estrutural', 1650], ['Substituição painel corta-fogo', 'frontal interna', 'estrutural', 2400]
   ]}
 ];
 
