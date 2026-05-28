@@ -1,0 +1,28 @@
+{
+  "name": "RegulaPro APV - Regulagem Automotiva",
+  "short_name": "RegulaPro APV",
+  "description": "Sistema web de regulagem automotiva profissional para Associação de Proteção Veicular com catálogo, kits, regras e funcionamento offline.",
+  "id": "/",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f4f7fb",
+  "theme_color": "#071b3a",
+  "categories": ["business", "productivity", "utilities"],
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icon-maskable.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

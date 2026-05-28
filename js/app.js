@@ -3,6 +3,7 @@ let estado = carregarEstado();
 let termoBusca = '';
 let categoriaFiltro = 'todas';
 let renderTimer = null;
+let promptInstalacaoPwa = null;
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
@@ -30,7 +31,8 @@ const els = {
   sugestoes: $('#sugestoes'),
   kits: $('#kitsContainer'),
   observacoes: $('#observacoes'),
-  toast: $('#toast')
+  toast: $('#toast'),
+  instalarApp: $('#btnInstalarApp')
 };
 
 function init() {
@@ -86,8 +88,21 @@ function vincularEventos() {
   });
 
   $('#btnLimpar').addEventListener('click', limparRegulagem);
+  els.instalarApp.addEventListener('click', instalarPwa);
   $('#btnCopiarResumo').addEventListener('click', copiarResumoWhatsapp);
   $('#btnGerarPdf').addEventListener('click', gerarPdf);
+
+  window.addEventListener('beforeinstallprompt', (event) => {
+    event.preventDefault();
+    promptInstalacaoPwa = event;
+    els.instalarApp.classList.remove('hidden');
+  });
+
+  window.addEventListener('appinstalled', () => {
+    promptInstalacaoPwa = null;
+    els.instalarApp.classList.add('hidden');
+    mostrarToast('RegulaPro APV instalado no dispositivo.');
+  });
 
   document.addEventListener('keydown', (event) => {
     if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
@@ -336,6 +351,21 @@ function copiarResumoWhatsapp() {
   navigator.clipboard.writeText(texto).then(() => mostrarToast('Resumo copiado para WhatsApp.'));
 }
 
+async function instalarPwa() {
+  if (!promptInstalacaoPwa) {
+    mostrarToast('Use a opção “Adicionar à tela inicial” do navegador.');
+    return;
+  }
+
+  promptInstalacaoPwa.prompt();
+  const escolha = await promptInstalacaoPwa.userChoice;
+  if (escolha.outcome === 'accepted') {
+    mostrarToast('Instalação iniciada.');
+  }
+  promptInstalacaoPwa = null;
+  els.instalarApp.classList.add('hidden');
+}
+
 function gerarPdf() {
   document.body.classList.add('printing');
   window.print();
@@ -356,3 +386,11 @@ function escapeHtml(texto) {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .catch((error) => console.warn('Service worker não registrado.', error));
+  });
+}
