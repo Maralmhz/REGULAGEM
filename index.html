@@ -8,35 +8,20 @@
 </head>
 <body>
   <div class="app-shell">
-    <aside class="sidebar" aria-label="Navegação principal">
-      <div class="brand">
-        <div class="brand__mark">RP</div>
-        <div>
-          <strong>RegulaPro</strong>
-          <span>Associação Veicular</span>
-        </div>
-      </div>
-      <nav class="side-nav">
-        <a href="#dashboard" class="active">Dashboard</a>
-        <a href="#veiculo">Veículo</a>
-        <a href="#catalogo">Catálogo</a>
-        <a href="#regulagem">Regulagem</a>
-        <a href="#relatorio">Relatório</a>
-      </nav>
-      <div class="sidebar-card">
-        <span class="pulse"></span>
-        <div>
-          <strong>Auto-save ativo</strong>
-          <small>Dados salvos no navegador.</small>
-        </div>
-      </div>
-    </aside>
-
     <main class="main-content">
       <header class="topbar">
-        <div>
-          <p class="eyebrow">Sistema profissional de valores médios fixos</p>
-          <h1>Regulagem de Eventos Automotivos</h1>
+        <div class="topbar-title">
+          <div class="brand-inline">
+            <div class="brand__mark">RP</div>
+            <div>
+              <strong>RegulaPro APV</strong>
+              <span>Auto-save ativo · valores médios fixos</span>
+            </div>
+          </div>
+          <div>
+            <p class="eyebrow">Sistema profissional de valores médios fixos</p>
+            <h1>Regulagem de Eventos Automotivos</h1>
+          </div>
         </div>
         <div class="topbar-actions">
           <button id="btnCopiarResumo" class="btn btn-secondary">Copiar resumo</button>
@@ -83,14 +68,10 @@
             </select>
           </label>
         </div>
-        <div class="vehicle-grid">
-          <label class="field"><span>Modelo</span><input id="modelo" type="text" placeholder="Ex.: Onix" /></label>
-          <label class="field"><span>Versão</span><input id="versao" type="text" placeholder="Ex.: LTZ 1.0 Turbo" /></label>
-          <label class="field"><span>Ano</span><input id="ano" type="text" placeholder="Ex.: 2024" /></label>
-          <label class="field"><span>Placa</span><input id="placa" type="text" placeholder="Ex.: ABC1D23" /></label>
-          <label class="field"><span>Cor</span><input id="cor" type="text" placeholder="Ex.: Branco" /></label>
-          <label class="field"><span>Chassi</span><input id="chassi" type="text" placeholder="17 caracteres" /></label>
-        </div>
+        <label class="field vehicle-single-field">
+          <span>Dados completos do veículo</span>
+          <textarea id="dadosVeiculo" rows="3" placeholder="Ex.: Chevrolet Onix LTZ 1.0 Turbo, ano 2024, placa ABC1D23, cor branca, chassi 9BG..., observações de versão/pacote..."></textarea>
+        </label>
       </section>
 
       <section class="workspace">
@@ -167,6 +148,19 @@
           </div>
         </div>
         <div id="categorySummary" class="category-summary"></div>
+        <div class="chart-panel" aria-label="Gráfico da regulagem por categoria">
+          <div class="chart-panel__header">
+            <div>
+              <p class="eyebrow">Gráfico final da regulagem</p>
+              <h3>Distribuição visual por valores</h3>
+            </div>
+            <div class="chart-kpis">
+              <span><strong id="chartMaiorCategoria">-</strong><small>maior categoria</small></span>
+              <span><strong id="chartTicketMedio">R$ 0,00</strong><small>valor médio/item</small></span>
+            </div>
+          </div>
+          <div id="regulagemChart" class="regulagem-chart"></div>
+        </div>
         <label class="field observations">
           <span>Observações técnicas</span>
           <textarea id="observacoes" rows="4" placeholder="Registre ressalvas, critérios aplicados, pendências de desmontagem ou análise complementar..."></textarea>

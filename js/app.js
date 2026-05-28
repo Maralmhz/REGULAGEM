@@ -10,7 +10,7 @@ const normalizar = (texto) => String(texto || '').normalize('NFD').replace(/[\u0
 
 const els = {
   porte: $('#porteVeiculo'),
-  vehicleInputs: ['modelo', 'versao', 'ano', 'placa', 'cor', 'chassi'].map((id) => $(`#${id}`)),
+  dadosVeiculo: $('#dadosVeiculo'),
   busca: $('#buscaCatalogo'),
   filtroCategoria: $('#filtroCategoria'),
   catalogoBody: $('#catalogoBody'),
@@ -24,6 +24,9 @@ const els = {
   score: $('#scoreGravidade'),
   alerta: $('#alertaGrandeMonta'),
   resumoCategorias: $('#categorySummary'),
+  chartMaiorCategoria: $('#chartMaiorCategoria'),
+  chartTicketMedio: $('#chartTicketMedio'),
+  chart: $('#regulagemChart'),
   sugestoes: $('#sugestoes'),
   kits: $('#kitsContainer'),
   observacoes: $('#observacoes'),
@@ -50,7 +53,8 @@ function popularCategorias() {
 
 function restaurarFormulario() {
   els.porte.value = estado.veiculo.porte || 'hatch';
-  els.vehicleInputs.forEach((input) => { input.value = estado.veiculo[input.id] || ''; });
+  els.dadosVeiculo.value = estado.veiculo.dados || montarDadosVeiculoLegado();
+  estado.veiculo.dados = els.dadosVeiculo.value;
   els.observacoes.value = estado.observacoes || '';
 }
 
@@ -61,11 +65,9 @@ function vincularEventos() {
     persistirERenderizar();
   });
 
-  els.vehicleInputs.forEach((input) => {
-    input.addEventListener('input', () => {
-      estado.veiculo[input.id] = input.value;
-      salvarEstado(estado);
-    });
+  els.dadosVeiculo.addEventListener('input', () => {
+    estado.veiculo.dados = els.dadosVeiculo.value;
+    salvarEstado(estado);
   });
 
   els.observacoes.addEventListener('input', () => {
@@ -267,6 +269,47 @@ function renderDashboard() {
     fragment.appendChild(row);
   });
   els.resumoCategorias.replaceChildren(fragment);
+  renderGraficoRegulagem(total, categorias);
+}
+
+function renderGraficoRegulagem(total, categorias) {
+  const entradas = Object.entries(categorias).sort((a, b) => b[1] - a[1]);
+  const maiorValor = entradas[0]?.[1] || 0;
+  const ticketMedio = estado.regulagem.length ? total / estado.regulagem.length : 0;
+  els.chartMaiorCategoria.textContent = entradas[0] ? CATEGORIA_LABELS[entradas[0][0]] : '-';
+  els.chartTicketMedio.textContent = moeda.format(ticketMedio);
+
+  const fragment = document.createDocumentFragment();
+  if (!entradas.length) {
+    const empty = document.createElement('div');
+    empty.className = 'empty-state';
+    empty.textContent = 'O gráfico será montado automaticamente conforme a regulagem receber itens.';
+    els.chart.replaceChildren(empty);
+    return;
+  }
+
+  entradas.forEach(([categoria, valor], index) => {
+    const percentualTotal = total ? (valor / total) * 100 : 0;
+    const altura = maiorValor ? Math.max(12, (valor / maiorValor) * 100) : 0;
+    const coluna = document.createElement('div');
+    coluna.className = `chart-column ${categoria}`;
+    coluna.style.setProperty('--bar-height', `${altura}%`);
+    coluna.style.setProperty('--delay', `${index * 45}ms`);
+    coluna.innerHTML = `
+      <div class="chart-column__value">${moeda.format(valor)}</div>
+      <div class="chart-column__track"><i></i></div>
+      <strong>${CATEGORIA_LABELS[categoria]}</strong>
+      <small>${percentualTotal.toFixed(1)}% · ${estado.regulagem.filter((item) => item.categoria === categoria).length} item(ns)</small>`;
+    fragment.appendChild(coluna);
+  });
+  els.chart.replaceChildren(fragment);
+}
+
+function montarDadosVeiculoLegado() {
+  const v = estado.veiculo || {};
+  return [v.modelo, v.versao, v.ano && `ano ${v.ano}`, v.placa && `placa ${v.placa}`, v.cor && `cor ${v.cor}`, v.chassi && `chassi ${v.chassi}`]
+    .filter(Boolean)
+    .join(', ');
 }
 
 function renderSugestoes() {
@@ -288,7 +331,8 @@ function copiarResumoWhatsapp() {
   const { total, categorias } = obterTotaisPorCategoria();
   const linhasCategorias = Object.entries(categorias).map(([cat, valor]) => `• ${CATEGORIA_LABELS[cat]}: ${moeda.format(valor)}`).join('\n');
   const veiculo = estado.veiculo;
-  const texto = `*Regulagem Automotiva - Associação de Proteção Veicular*\n\n*Veículo:* ${veiculo.modelo || '-'} ${veiculo.versao || ''}\n*Ano:* ${veiculo.ano || '-'}\n*Placa:* ${veiculo.placa || '-'}\n*Cor:* ${veiculo.cor || '-'}\n*Chassi:* ${veiculo.chassi || '-'}\n*Porte:* ${PORTE_LABELS[veiculo.porte || 'hatch']}\n\n*Itens:*\n${estado.regulagem.map((item) => `• ${item.descricao}: ${moeda.format(item.valor)}`).join('\n') || 'Nenhum item'}\n\n*Totais por categoria:*\n${linhasCategorias || 'Sem categorias'}\n\n*Total geral:* ${moeda.format(total)}\n*Classificação:* ${avaliarGravidade(estado.regulagem).classificacao}\n\n*Observações:* ${estado.observacoes || '-'}`;
+  const dadosVeiculo = veiculo.dados || montarDadosVeiculoLegado() || '-';
+  const texto = `*Regulagem Automotiva - Associação de Proteção Veicular*\n\n*Veículo:* ${dadosVeiculo}\n*Porte:* ${PORTE_LABELS[veiculo.porte || 'hatch']}\n\n*Itens:*\n${estado.regulagem.map((item) => `• ${item.descricao}: ${moeda.format(item.valor)}`).join('\n') || 'Nenhum item'}\n\n*Totais por categoria:*\n${linhasCategorias || 'Sem categorias'}\n\n*Total geral:* ${moeda.format(total)}\n*Classificação:* ${avaliarGravidade(estado.regulagem).classificacao}\n\n*Observações:* ${estado.observacoes || '-'}`;
   navigator.clipboard.writeText(texto).then(() => mostrarToast('Resumo copiado para WhatsApp.'));
 }
 

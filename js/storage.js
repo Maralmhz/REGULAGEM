@@ -1,7 +1,7 @@
 const STORAGE_KEY = 'regulapro_apv_estado_v1';
 
 const estadoPadrao = {
-  veiculo: { modelo: '', versao: '', ano: '', placa: '', cor: '', chassi: '', porte: 'hatch' },
+  veiculo: { dados: '', modelo: '', versao: '', ano: '', placa: '', cor: '', chassi: '', porte: 'hatch' },
   regulagem: [],
   observacoes: ''
 };
