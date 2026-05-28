@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RegulaPro APV | Regulagem Automotiva</title>
+  <meta name="theme-color" content="#071b3a" />
+  <meta name="description" content="Sistema PWA de regulagem automotiva para Associação de Proteção Veicular, com catálogo, kits, regras e funcionamento offline." />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="RegulaPro APV" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/icon.svg" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <main class="main-content">
+      <header class="topbar">
+        <div class="topbar-title">
+          <div class="brand-inline">
+            <div class="brand__mark">RP</div>
+            <div>
+              <strong>RegulaPro APV</strong>
+              <span>Auto-save ativo · valores médios fixos</span>
+            </div>
+          </div>
+          <div>
+            <p class="eyebrow">Sistema profissional de valores médios fixos</p>
+            <h1>Regulagem de Eventos Automotivos</h1>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <button id="btnInstalarApp" class="btn btn-secondary hidden" type="button">Instalar app</button>
+          <button id="btnCopiarResumo" class="btn btn-secondary">Copiar resumo</button>
+          <button id="btnGerarPdf" class="btn btn-danger">Gerar PDF</button>
+        </div>
+      </header>
+
+      <section id="dashboard" class="dashboard-grid">
+        <article class="metric-card">
+          <span>Total geral</span>
+          <strong id="totalGeral">R$ 0,00</strong>
+          <small>Somatório dos serviços selecionados</small>
+        </article>
+        <article class="metric-card">
+          <span>Itens</span>
+          <strong id="totalItens">0</strong>
+          <small>Serviços na regulagem</small>
+        </article>
+        <article class="metric-card">
+          <span>Gravidade</span>
+          <strong id="classificacaoGravidade">Pequena monta</strong>
+          <small id="scoreGravidade">Score 0</small>
+        </article>
+        <article class="metric-card alert" id="alertaGrandeMonta">
+          <span>Alerta técnico</span>
+          <strong>Sem alerta</strong>
+          <small>Regras automáticas em tempo real</small>
+        </article>
+      </section>
+
+      <section class="panel" id="veiculo">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Identificação veicular</p>
+            <h2>Dados do veículo</h2>
+          </div>
+          <label class="field compact">
+            <span>Porte</span>
+            <select id="porteVeiculo">
+              <option value="hatch">Hatch compacto</option>
+              <option value="sedan">Sedan/Hatch médio</option>
+              <option value="suv">SUV/Picape leve</option>
+              <option value="utilitario">Utilitário/Van</option>
+            </select>
+          </label>
+        </div>
+        <label class="field vehicle-single-field">
+          <span>Dados completos do veículo</span>
+          <textarea id="dadosVeiculo" rows="3" placeholder="Ex.: Chevrolet Onix LTZ 1.0 Turbo, ano 2024, placa ABC1D23, cor branca, chassi 9BG..., observações de versão/pacote..."></textarea>
+        </label>
+      </section>
+
+      <section class="workspace">
+        <div class="panel catalog-panel" id="catalogo">
+          <div class="panel-header sticky-panel-header">
+            <div>
+              <p class="eyebrow">Catálogo inteligente</p>
+              <h2>Serviços por valores fixos médios</h2>
+            </div>
+            <span id="catalogoCount" class="badge neutral">0 itens</span>
+          </div>
+
+          <div class="toolbar">
+            <label class="search-box" aria-label="Buscar serviços">
+              <span>🔎</span>
+              <input id="buscaCatalogo" type="search" placeholder="Buscar por nome, categoria ou subcategoria..." />
+            </label>
+            <select id="filtroCategoria" aria-label="Filtrar categoria">
+              <option value="todas">Todas as categorias</option>
+            </select>
+          </div>
+
+          <div class="quick-kits" id="kitsContainer"></div>
+
+          <div class="table-wrap catalog-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Serviço</th>
+                  <th>Categoria</th>
+                  <th>Subcategoria</th>
+                  <th>Valor</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="catalogoBody"></tbody>
+            </table>
+            <div id="catalogoEmpty" class="empty-state hidden">Nenhum serviço encontrado para a busca.</div>
+          </div>
+        </div>
+
+        <div class="panel regulation-panel" id="regulagem">
+          <div class="panel-header sticky-panel-header">
+            <div>
+              <p class="eyebrow">Painel de regulagem</p>
+              <h2>Itens selecionados</h2>
+            </div>
+            <button id="btnLimpar" class="btn btn-ghost">Limpar</button>
+          </div>
+          <div id="sugestoes" class="suggestions"></div>
+          <div class="table-wrap regulation-table-wrap">
+            <table class="data-table editable-table">
+              <thead>
+                <tr>
+                  <th>Categoria</th>
+                  <th>Descrição</th>
+                  <th>Valor</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="regulagemBody"></tbody>
+            </table>
+            <div id="regulagemEmpty" class="empty-state">Adicione serviços do catálogo ou aplique um kit rápido.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="relatorio">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Distribuição financeira</p>
+            <h2>Totalização por categoria</h2>
+          </div>
+        </div>
+        <div id="categorySummary" class="category-summary"></div>
+        <div class="chart-panel" aria-label="Gráfico da regulagem por categoria">
+          <div class="chart-panel__header">
+            <div>
+              <p class="eyebrow">Gráfico final da regulagem</p>
+              <h3>Distribuição visual por valores</h3>
+            </div>
+            <div class="chart-kpis">
+              <span><strong id="chartMaiorCategoria">-</strong><small>maior categoria</small></span>
+              <span><strong id="chartTicketMedio">R$ 0,00</strong><small>valor médio/item</small></span>
+            </div>
+          </div>
+          <div id="regulagemChart" class="regulagem-chart"></div>
+        </div>
+        <label class="field observations">
+          <span>Observações técnicas</span>
+          <textarea id="observacoes" rows="4" placeholder="Registre ressalvas, critérios aplicados, pendências de desmontagem ou análise complementar..."></textarea>
+        </label>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/catalogo.js"></script>
+  <script src="js/regras.js"></script>
+  <script src="js/kits.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
